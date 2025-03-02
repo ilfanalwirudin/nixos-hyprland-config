@@ -15,6 +15,12 @@
 
   nixpkgs.config.allowUnfree = true;
   
+
+ #Enable Cloudflare warp cli B
+
+  systemd.packages = [ pkgs.cloudflare-warp ]; # for warp-cli
+  systemd.targets.multi-user.wants = [ "warp-svc.service" ]; # causes warp-svc to be started automatically
+  
   environment.systemPackages = (with pkgs; [
   # System Packages
     bc
@@ -51,8 +57,14 @@
     inputs.zen-browser.packages."${system}".default # beta
     telegram-desktop
     discord
+    cloudflare-warp
+    cloudflared
+    github-desktop  
+    flatpak
+    distrobox
     
-      
+
+ 
     # Hyprland Stuff
     #(ags.overrideAttrs (oldAttrs: { inherit (oldAttrs) pname; version = "1.8.2"; }))
     ags # desktop overview  
