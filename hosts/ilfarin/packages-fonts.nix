@@ -42,6 +42,16 @@
     fastfetch
     (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
     ranger
+
+
+    #Personal stuff 
+    brave
+    libsForQt5.dolphin
+    ghostty
+    inputs.zen-browser.packages."${system}".default # beta
+    telegram-desktop
+    discord
+    
       
     # Hyprland Stuff
     #(ags.overrideAttrs (oldAttrs: { inherit (oldAttrs) pname; version = "1.8.2"; }))

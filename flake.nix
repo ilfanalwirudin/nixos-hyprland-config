@@ -8,6 +8,8 @@
 	hyprland.url = "github:hyprwm/Hyprland"; # hyprland development
 	#distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 	ags.url = "github:aylur/ags/v1"; # aylurs-gtk-shell-v1
+        
+	zen-browser.url = "github:0xc000022070/zen-browser-flake";
   	};
 
   outputs = 
