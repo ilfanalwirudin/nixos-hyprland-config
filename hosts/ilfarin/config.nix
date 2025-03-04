@@ -118,10 +118,10 @@
   networking.timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
 
   # Set your time zone.
-  services.automatic-timezoned.enable = true; #based on IP location
+  #services.automatic-timezoned.enable = true; #based on IP location
   
   #https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  #time.timeZone = "Asia/Seoul"; # Set local timezone
+  time.timeZone = "Asia/Jakarta"; # Set local timezone
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -320,7 +320,7 @@
   };
 
   # Virtualization / Containers
-  virtualisation.libvirtd.enable = false;
+  virtualisation.libvirtd.enable = true;
   virtualisation.podman = {
     enable = false;
     dockerCompat = false;

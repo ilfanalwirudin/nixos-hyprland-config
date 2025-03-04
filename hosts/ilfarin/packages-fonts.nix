@@ -1,7 +1,7 @@
 # 💫 https://github.com/JaKooLit 💫 #
 # Packages and Fonts config including the "programs" options
 
-{ pkgs, inputs, ...}: let
+{ pkgs, inputs, options,  ...}: let
 
   python-packages = pkgs.python3.withPackages (
     ps:
@@ -15,6 +15,24 @@
 
   nixpkgs.config.allowUnfree = true;
   
+
+ 
+  # Set your time zone.
+#  time.timeZone = "Asia/Jakarta";
+#   services.automatic-timezoned.enable = true;
+   networking.timeServers = options.networking.timeServers.default;
+   services.ntp.enable = true;
+
+
+
+# Virt Manager
+
+ programs.virt-manager.enable = true;
+ users.groups.libvirtd.members = ["ilfarin"];
+# virtualisation.libvirtd.enable = true;
+ virtualisation.spiceUSBRedirection.enable = true;
+
+
 
  #Enable Cloudflare warp cli B
 
@@ -62,6 +80,8 @@
     github-desktop  
     flatpak
     distrobox
+    vscode
+    gparted
     
 
  
@@ -157,8 +177,7 @@
 		  thunar-volman
 		  tumbler
   	  ];
-	
-    virt-manager.enable = false;
+
     
     #steam = {
     #  enable = true;
