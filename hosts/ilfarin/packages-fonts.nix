@@ -1,7 +1,7 @@
 # 💫 https://github.com/JaKooLit 💫 #
 # Packages and Fonts config including the "programs" options
 
-{ pkgs, inputs, options,  ...}: let
+{ pkgs, inputs, options, ...}: let
 
   python-packages = pkgs.python3.withPackages (
     ps:
@@ -26,12 +26,12 @@
 
 
 # Virt Manager
-
+#  programs.dconf.enable = true;
  programs.virt-manager.enable = true;
  users.groups.libvirtd.members = ["ilfarin"];
 # virtualisation.libvirtd.enable = true;
- virtualisation.spiceUSBRedirection.enable = true;
-
+# virtualisation.spiceUSBRedirection.enable = true;
+#  users.users.ilfarin.extraGroups = [ "libvirtd" ];
 
 
  #Enable Cloudflare warp cli B
@@ -82,6 +82,14 @@
     distrobox
     vscode
     gparted
+
+
+    virt-viewer
+    spice spice-gtk
+    spice-protocol
+    win-virtio
+    win-spice
+   # gnome.adwaita-icon-theme
     
 
  
@@ -198,6 +206,22 @@
     };
 	
   };
+
+
+  # Manage the virtualisation services
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+#    spiceUSBRedirection.enable = true;
+  };
+ # services.spice-vdagentd.enable = true;
+
 
   # Extra Portal Configuration
   xdg.portal = {

@@ -1,8 +1,8 @@
-# 💫 https://github.com/JaKooLit 💫 #
+#  https://github.com/JaKooLit #
 # Main default config
 
 
-# NOTE!!! : Packages and Fonts are configured in packages-&-fonts.nix
+#: Packages and Fonts are configured in packages-&-fonts.nix
 
 
 { config, pkgs, host, username, options, lib, inputs, system, ...}: let
@@ -176,7 +176,7 @@
 	    wireplumber.enable = true;
   	  };
 	
-    #pulseaudio.enable = false; #unstable
+    pulseaudio.enable = false; #unstable
 	  udev.enable = true;
 	  envfs.enable = true;
 	  dbus.enable = true;
