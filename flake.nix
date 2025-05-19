@@ -10,6 +10,7 @@
 	ags.url = "github:aylur/ags/v1"; # aylurs-gtk-shell-v1
         
 	zen-browser.url = "github:0xc000022070/zen-browser-flake";
+        nixvim.url = "github:dc-tec/nixvim";
   	};
 
   outputs = 

@@ -66,7 +66,8 @@
     fastfetch
     (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
     ranger
-
+    inputs.nixvim.packages.x86_64-linux.default
+   
 
     #Personal stuff 
     brave
@@ -89,9 +90,10 @@
     spice-protocol
     win-virtio
     win-spice
+    xfce.thunar-archive-plugin
    # gnome.adwaita-icon-theme
-    
-
+    p7zip
+    yazi
  
     # Hyprland Stuff
     #(ags.overrideAttrs (oldAttrs: { inherit (oldAttrs) pname; version = "1.8.2"; }))
@@ -187,12 +189,22 @@
   	  ];
 
     
-    #steam = {
-    #  enable = true;
-    #  gamescopeSession.enable = true;
-    #  remotePlay.openFirewall = true;
-    #  dedicatedServer.openFirewall = true;
-    #};
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+    };
+
+#Neovim
+
+#neovim = {
+#  enable = true;
+#  defaultEditor = true;
+#};
+
+
+
     
     xwayland.enable = true;
 
