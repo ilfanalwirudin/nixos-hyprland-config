@@ -83,7 +83,7 @@
     distrobox
     vscode
     gparted
-
+    
 
     virt-viewer
     spice spice-gtk
@@ -94,7 +94,14 @@
    # gnome.adwaita-icon-theme
     p7zip
     yazi
- 
+    google-chrome
+    
+    
+
+    #code
+    nodejs
+
+
     # Hyprland Stuff
     #(ags.overrideAttrs (oldAttrs: { inherit (oldAttrs) pname; version = "1.8.2"; }))
     ags # desktop overview  
@@ -130,6 +137,11 @@
     swappy
     swaynotificationcenter
     swww
+    hypridle
+
+
+
+
     unzip
     wallust
     wl-clipboard
@@ -176,8 +188,7 @@
 	  hyprlock.enable = true;
 	  firefox.enable = true;
 	  git.enable = true;
-    nm-applet.indicator = true;
-    #neovim.enable = true;
+          nm-applet.indicator = true;
 
 	  thunar.enable = true;
 	  thunar.plugins = with pkgs.xfce; [
@@ -196,7 +207,7 @@
       dedicatedServer.openFirewall = true;
     };
 
-#Neovim
+#Neovim already use on flake
 
 #neovim = {
 #  enable = true;
