@@ -1,160 +1,168 @@
 # 💫 https://github.com/JaKooLit 💫 #
 # Packages and Fonts config including the "programs" options
 
-{ pkgs, inputs, options, ...}: let
+{
+  pkgs,
+  inputs,
+  options,
+  ...
+}:
+let
 
   python-packages = pkgs.python3.withPackages (
-    ps:
-      with ps; [
-        requests
-        pyquery # needed for hyprland-dots Weather script
-        ]
-    );
+    ps: with ps; [
+      requests
+      pyquery # needed for hyprland-dots Weather script
+    ]
+  );
 
-  in {
+in
+{
 
   nixpkgs.config.allowUnfree = true;
-  
 
- 
   # Set your time zone.
-#  time.timeZone = "Asia/Jakarta";
-#   services.automatic-timezoned.enable = true;
-   networking.timeServers = options.networking.timeServers.default;
-   services.ntp.enable = true;
+  #  time.timeZone = "Asia/Jakarta";
+  #   services.automatic-timezoned.enable = true;
+  networking.timeServers = options.networking.timeServers.default;
+  services.ntp.enable = true;
 
+  # Virt Manager
+  #  programs.dconf.enable = true;
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = [ "ilfarin" ];
+  # virtualisation.libvirtd.enable = true;
+  # virtualisation.spiceUSBRedirection.enable = true;
+  #  users.users.ilfarin.extraGroups = [ "libvirtd" ];
 
-
-# Virt Manager
-#  programs.dconf.enable = true;
- programs.virt-manager.enable = true;
- users.groups.libvirtd.members = ["ilfarin"];
-# virtualisation.libvirtd.enable = true;
-# virtualisation.spiceUSBRedirection.enable = true;
-#  users.users.ilfarin.extraGroups = [ "libvirtd" ];
-
-
- #Enable Cloudflare warp cli B
+  #Enable Cloudflare warp cli B
 
   systemd.packages = [ pkgs.cloudflare-warp ]; # for warp-cli
   systemd.targets.multi-user.wants = [ "warp-svc.service" ]; # causes warp-svc to be started automatically
-  
-  environment.systemPackages = (with pkgs; [
-  # System Packages
-    bc
-    baobab
-    btrfs-progs
-    clang
-    curl
-    cpufrequtils
-    duf
-    eza
-    ffmpeg   
-    glib #for gsettings to work
-    gsettings-qt
-    git
-    killall  
-    libappindicator
-    libnotify
-    openssl #required by Rainbow borders
-    pciutils
-    vim
-    wget
-    xdg-user-dirs
-    xdg-utils
 
-    fastfetch
-    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
-    ranger
-    inputs.nixvim.packages.x86_64-linux.default
-   
+  environment.systemPackages =
+    (with pkgs; [
+      # System Packages
+      bc
+      baobab
+      btrfs-progs
+      clang
+      curl
+      cpufrequtils
+      duf
+      eza
+      ffmpeg
+      ffmpegthumbnailer
+      glib # for gsettings to work
+      gsettings-qt
+      git
+      killall
+      libappindicator
+      libnotify
+      openssl # required by Rainbow borders
+      pciutils
+      vim
+      wget
+      xdg-user-dirs
+      xdg-utils
 
-    #Personal stuff 
-    brave
-    libsForQt5.dolphin
-    ghostty
-    inputs.zen-browser.packages."${system}".default # beta
-    telegram-desktop
-    discord
-    cloudflare-warp
-    cloudflared
-    github-desktop  
-    flatpak
-    distrobox
-    vscode
-    gparted
-    
+      fastfetch
+      (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
+      ranger
+      inputs.nixvim.packages.x86_64-linux.default
+      #  inputs.yazi.packages.${pkgs.system}.default
 
-    virt-viewer
-    spice spice-gtk
-    spice-protocol
-    win-virtio
-    win-spice
-    xfce.thunar-archive-plugin
-   # gnome.adwaita-icon-theme
-    p7zip
-    yazi
-    google-chrome
-    
-    
+      #Personal stuff
+      brave
+      libsForQt5.dolphin
+      ghostty
+      inputs.zen-browser.packages."${system}".default # beta
+      telegram-desktop
+      discord
+      cloudflare-warp
+      cloudflared
+      github-desktop
+      flatpak
+      distrobox
+      vscode
+      gparted
 
-    #code
-    nodejs
+      virt-viewer
+      spice
+      spice-gtk
+      spice-protocol
+      win-virtio
+      win-spice
+      xfce.thunar-archive-plugin
+      # gnome.adwaita-icon-theme
+      p7zip
+      google-chrome
+      clockify
 
+      #yazi-tutorial
+      #yazi
+      fzf
+      zoxide
+      jq
+      poppler
+      fd
+      ripgrep
+      imagemagick
 
-    # Hyprland Stuff
-    #(ags.overrideAttrs (oldAttrs: { inherit (oldAttrs) pname; version = "1.8.2"; }))
-    ags # desktop overview  
-    btop
-    brightnessctl # for brightness control
-    cava
-    cliphist
-    loupe
-    gnome-system-monitor
-    grim
-    gtk-engine-murrine #for gtk themes
-    hypridle
-    imagemagick 
-    inxi
-    jq
-    kitty
-    libsForQt5.qtstyleplugin-kvantum #kvantum
-    networkmanagerapplet
-    nwg-displays
-    nwg-look
-    nvtopPackages.full	 
-    pamixer
-    pavucontrol
-    playerctl
-    polkit_gnome
-    pyprland
-    libsForQt5.qt5ct
-    kdePackages.qt6ct
-    kdePackages.qtwayland
-    kdePackages.qtstyleplugin-kvantum #kvantum
-    rofi-wayland
-    slurp
-    swappy
-    swaynotificationcenter
-    swww
-    hypridle
+      #code
+      nodejs
 
+      # Hyprland Stuff
+      #(ags.overrideAttrs (oldAttrs: { inherit (oldAttrs) pname; version = "1.8.2"; }))
+      ags # desktop overview
+      btop
+      brightnessctl # for brightness control
+      cava
+      cliphist
+      loupe
+      gnome-system-monitor
+      grim
+      gtk-engine-murrine # for gtk themes
+      hypridle
+      imagemagick
+      inxi
+      jq
+      kitty
+      libsForQt5.qtstyleplugin-kvantum # kvantum
+      networkmanagerapplet
+      nwg-displays
+      nwg-look
+      nvtopPackages.full
+      pamixer
+      pavucontrol
+      playerctl
+      polkit_gnome
+      pyprland
+      libsForQt5.qt5ct
+      kdePackages.qt6ct
+      kdePackages.qtwayland
+      kdePackages.qtstyleplugin-kvantum # kvantum
+      rofi-wayland
+      slurp
+      swappy
+      swaynotificationcenter
+      swww
+      hypridle
 
+      unzip
+      wallust
+      wl-clipboard
+      wlogout
+      xarchiver
+      yad
+      yt-dlp
 
-
-    unzip
-    wallust
-    wl-clipboard
-    wlogout
-    xarchiver
-    yad
-    yt-dlp
-
-    #waybar  # if wanted experimental next line
-    #(pkgs.waybar.overrideAttrs (oldAttrs: { mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];}))
-  ]) ++ [
-	  python-packages
-  ];
+      #waybar  # if wanted experimental next line
+      #(pkgs.waybar.overrideAttrs (oldAttrs: { mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];}))
+    ])
+    ++ [
+      python-packages
+    ];
 
   # FONTS
   fonts.packages = with pkgs; [
@@ -165,41 +173,39 @@
     font-awesome
     terminus_font
     victor-mono
-   # (nerdfonts.override {fonts = ["JetBrainsMono"];}) # stable banch
-   # (nerdfonts.override {fonts = ["FantasqueSansMono"];}) # stable banch
-    
-    nerd-fonts.jetbrains-mono # unstable 
+    # (nerdfonts.override {fonts = ["JetBrainsMono"];}) # stable banch
+    # (nerdfonts.override {fonts = ["FantasqueSansMono"];}) # stable banch
+
+    nerd-fonts.jetbrains-mono # unstable
     nerd-fonts.fira-code # unstable
-    nerd-fonts.fantasque-sans-mono #unstable
- 	];
-  
+    nerd-fonts.fantasque-sans-mono # unstable
+  ];
+
   programs = {
-	  hyprland = {
+    hyprland = {
       enable = true;
-     	  #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
-		    #portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; #xdph-git
-     	  
-        portalPackage = pkgs.xdg-desktop-portal-hyprland; # xdph none git
-  	  xwayland.enable = true;
+      #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
+      #portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; #xdph-git
+
+      portalPackage = pkgs.xdg-desktop-portal-hyprland; # xdph none git
+      xwayland.enable = true;
     };
 
-	
-	  waybar.enable = true;
-	  hyprlock.enable = true;
-	  firefox.enable = true;
-	  git.enable = true;
-          nm-applet.indicator = true;
+    waybar.enable = true;
+    hyprlock.enable = true;
+    firefox.enable = true;
+    git.enable = true;
+    nm-applet.indicator = true;
 
-	  thunar.enable = true;
-	  thunar.plugins = with pkgs.xfce; [
-		  exo
-		  mousepad
-		  thunar-archive-plugin
-		  thunar-volman
-		  tumbler
-  	  ];
+    thunar.enable = true;
+    thunar.plugins = with pkgs.xfce; [
+      exo
+      mousepad
+      thunar-archive-plugin
+      thunar-volman
+      tumbler
+    ];
 
-    
     steam = {
       enable = true;
       gamescopeSession.enable = true;
@@ -207,16 +213,13 @@
       dedicatedServer.openFirewall = true;
     };
 
-#Neovim already use on flake
+    #Neovim already use on flake
 
-#neovim = {
-#  enable = true;
-#  defaultEditor = true;
-#};
+    #neovim = {
+    #  enable = true;
+    #  defaultEditor = true;
+    #};
 
-
-
-    
     xwayland.enable = true;
 
     dconf.enable = true;
@@ -227,9 +230,8 @@
       enable = true;
       enableSSHSupport = true;
     };
-	
-  };
 
+  };
 
   # Manage the virtualisation services
   virtualisation = {
@@ -241,10 +243,9 @@
         ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
-#    spiceUSBRedirection.enable = true;
+    #    spiceUSBRedirection.enable = true;
   };
- # services.spice-vdagentd.enable = true;
-
+  # services.spice-vdagentd.enable = true;
 
   # Extra Portal Configuration
   xdg.portal = {
@@ -257,6 +258,6 @@
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal
     ];
-    };
+  };
 
-  }
+}
