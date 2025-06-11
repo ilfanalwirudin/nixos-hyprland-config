@@ -98,6 +98,7 @@ in
       p7zip
       google-chrome
       clockify
+      obsidian
 
       #yazi-tutorial
       #yazi
