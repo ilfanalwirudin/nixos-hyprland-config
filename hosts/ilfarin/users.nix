@@ -40,6 +40,20 @@ in
   environment.shells = with pkgs; [ zsh ];
   environment.systemPackages = with pkgs; [ fzf ];
 
+  virtualisation.docker = {
+    enable = true;
+    # Set up resource limits
+    daemon.settings = {
+      experimental = true;
+      default-address-pools = [
+        {
+          base = "172.30.0.0/16";
+          size = 24;
+        }
+      ];
+    };
+  };
+
   programs = {
 
     #Yazi Configuration
