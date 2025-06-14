@@ -5,6 +5,7 @@
   pkgs,
   inputs,
   options,
+  lib,
   ...
 }:
 let
@@ -39,6 +40,12 @@ in
 
   systemd.packages = [ pkgs.cloudflare-warp ]; # for warp-cli
   systemd.targets.multi-user.wants = [ "warp-svc.service" ]; # causes warp-svc to be started automatically
+
+
+
+
+
+
 
   environment.systemPackages =
     (with pkgs; [
@@ -201,6 +208,7 @@ in
   ];
 
   programs = {
+
     hyprland = {
       enable = true;
       #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
@@ -239,7 +247,6 @@ in
     #  defaultEditor = true;
     #};
 
-    #anyrun
 
     xwayland.enable = true;
 
@@ -252,7 +259,202 @@ in
       enableSSHSupport = true;
     };
 
+
+
+
+  nvf = {
+    enable = true;
+    settings = {
+
+        vim.theme.enable = true;
+        vim.theme.name = "gruvbox";
+        vim.theme.style = "dark";
+
+
+        vim.statusline.lualine.enable = true;
+        vim.navigation.harpoon.enable = true;
+        #vim.autocomplete.enableSharedCmpSources = true;
+        
+
+        #Languages
+        vim.languages.ts.enable = true;
+        vim.languages.nix.enable = true;
+        vim.languages.rust.enable = true;
+        
+        #Autocomplete
+
+      vim.autocomplete.nvim-cmp = {
+      enable = true;
+
+      sources = lib.mkForce {
+        "nvim_lsp" = "[LSP]";
+        "path" = "[Path]";
+        "buffer" = "[Buffer]";
+        "luasnip" = "[snippets]";
+      };
+    };
+
+        #Clipboard
+        
+          vim.clipboard = {
+            enable = true;
+            providers.wl-copy.enable = true;
+            registers = "unnamedplus";
+          };
+
+         vim.enableLuaLoader = true;
+
+         #Options 
+
+           vim = {
+    globals = {
+      mapleader = " ";
+    };
+    options = {
+      # Numbering
+      number = true;
+      relativenumber = true;
+
+      # Tab Settings
+      tabstop = 2;
+      softtabstop = 2;
+      showtabline = 2;
+      expandtab = true;
+
+      # Indentation
+      smartindent = true;
+      shiftwidth = 2;
+      breakindent = true;
+
+      wrap = false;
+    };
   };
+
+        #Utility 
+
+
+
+  vim.utility = {
+    preview = {
+      glow.enable = true;
+      glow.mappings.openPreview = "<leader>mg";
+      markdownPreview = {
+        enable = true;
+        alwaysAllowPreview = true;
+        autoClose = true;
+        autoStart = true;
+      };
+    };
+    snacks-nvim.enable = true;
+
+    images = {
+      image-nvim = {
+        enable = true;
+        setupOpts = {
+          backend = "kitty";
+          editorOnlyRenderWhenFocused = false;
+          integrations = {
+            markdown = {
+              enable = true;
+              clearInInsertMode = true;
+              downloadRemoteImages = true;
+            };
+          };
+        };
+      };
+      img-clip.enable = true;
+    };
+  };
+
+
+
+
+        #Keymap
+  vim.keymaps = [
+    {
+      key = "<C-p>";
+      mode = "n";
+      silent = true;
+      action = "<cmd>Telescope find_files<CR>";
+      desc = "Find files wiht names";
+    }
+    {
+      key = "<leader>fg";
+      mode = "n";
+      silent = true;
+      action = "<cmd>Telescope live_grep<CR>";
+      desc = "Find files with Contents FZF";
+    }
+    {
+      key = "<C-n>";
+      mode = "n";
+      silent = true;
+      action = "<cmd>Neotree filesystem reveal left<CR>";
+      desc = "Show filesystem";
+    }
+    {
+      key = "<C-m>";
+      mode = "n";
+      silent = true;
+      action = "<cmd>Neotree close<CR>";
+      desc = "Close filesystem";
+    }
+    {
+      key = "<K>";
+      mode = "n";
+      silent = true;
+      action = "<cmd>vim.lsp.buf.hover<CR>";
+      desc = "Hover Documentation";
+    }
+    {
+      key = "gd";
+      mode = "n";
+      silent = true;
+      action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+      desc = "Go to Definition";
+    }
+    {
+      key = "<leader>ca";
+      mode = "n";
+      silent = true;
+      action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+      desc = "LSP Code Action (Normal)";
+    }
+    {
+      key = "<leader>ca";
+      mode = "v";
+      silent = true;
+      action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+      desc = "LSP Code Action (Visual)";
+    }
+
+  ];
+
+        };
+
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  };
+  # End of program #
+
 
   # Manage the virtualisation services
   virtualisation = {
@@ -280,5 +482,24 @@ in
       pkgs.xdg-desktop-portal
     ];
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

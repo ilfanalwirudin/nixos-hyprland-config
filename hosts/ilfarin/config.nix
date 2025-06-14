@@ -24,6 +24,7 @@ in
     ./hardware.nix
     ./users.nix
     ./packages-fonts.nix
+    ./nvf.nix
     ../../modules/amd-drivers.nix
     ../../modules/nvidia-drivers.nix
     ../../modules/nvidia-prime-drivers.nix
@@ -276,7 +277,7 @@ in
   hardware.logitech.wireless.enable = false;
   hardware.logitech.wireless.enableGraphical = false;
 
-  hardware.pulseaudio.enable = false; # stable branch
+  #hardware.pulseaudio.enable = false; # stable branch
 
   # Bluetooth
   hardware = {
