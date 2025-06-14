@@ -61,15 +61,15 @@ in
       libnotify
       openssl # required by Rainbow borders
       pciutils
-      vim
+     # vim
       wget
       xdg-user-dirs
       xdg-utils
-
+      warp-terminal
       fastfetch
       (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
       ranger
-      inputs.nixvim.packages.x86_64-linux.default
+      #inputs.nixvim.packages.x86_64-linux.default
       #  inputs.yazi.packages.${pkgs.system}.default
 
       #Personal stuff
@@ -109,7 +109,7 @@ in
       fd
       ripgrep
       imagemagick
-
+      #neovim
       #code
       nodejs
 
@@ -150,6 +150,22 @@ in
       swww
       hypridle
 
+      fd
+      (pkgs.python3.withPackages (
+        python-pkgs: with python-pkgs; [
+          aubio
+          pyaudio
+          numpy
+        ]
+      ))
+      inputs.quickshell.packages.x86_64-linux.default
+      cava
+      bluez
+      ddcutil
+      brightnessctl
+      curl
+      material-symbols
+
       unzip
       wallust
       wl-clipboard
@@ -158,6 +174,8 @@ in
       yad
       yt-dlp
 
+      ticktick
+      ulauncher
       #waybar  # if wanted experimental next line
       #(pkgs.waybar.overrideAttrs (oldAttrs: { mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];}))
     ])
@@ -220,6 +238,8 @@ in
     #  enable = true;
     #  defaultEditor = true;
     #};
+
+    #anyrun
 
     xwayland.enable = true;
 
